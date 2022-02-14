@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Collections.Generic;
 using Catalog.Entities;
 
@@ -20,6 +21,8 @@ namespace Catalog.Repositories
     public Item GetItem(Guid id)
     {
       return items.Where(item => item.Id == id).SingleOrDefault();
+      
+      
     }
   }
 }
