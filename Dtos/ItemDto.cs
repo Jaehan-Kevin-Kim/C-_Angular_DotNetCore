@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace Catalog.Dtos
 {
    public record ItemDto
@@ -6,7 +8,9 @@ namespace Catalog.Dtos
     // public Guid Id {get; set;}
     public Guid Id {get; init;}
 
+
     public string Name {get; init;}
+
 
     public decimal Price {get; init;}
 

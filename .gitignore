@@ -1,2 +1,10 @@
 bin/*
 obj/*
+bin/Debug/net6.0/Catalog.dll
+bin/Debug/net6.0/Catalog.pdb
+bin/Debug/net6.0/ref/Catalog.dll
+obj/staticwebassets.pack.sentinel
+obj/Debug/net6.0/Catalog.csproj.CoreCompileInputs.cache
+obj/Debug/net6.0/Catalog.dll
+obj/Debug/net6.0/Catalog.pdb
+obj/Debug/net6.0/ref/Catalog.dll
