@@ -3,6 +3,7 @@ using System.Linq;
 using Catalog.Dtos;
 using Catalog.Entities;
 using Catalog.Repositories;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Controllers
@@ -95,6 +96,21 @@ namespace Catalog.Controllers
       repository.UpdateItem(updateItem);
 
       return NoContent();
+    }
+    // DELETE /items/{id}
+    [HttpDelete("{id}")]
+    public ActionResult DeleteItem(Guid id)
+    {
+      var existingItem = repository.GetItem(id);
+
+      if (existingItem is null)
+      {
+        return NotFound();
+      }
+
+      repository.DeleteItem(id);
+      return NoContent();
+
     }
   }
 
