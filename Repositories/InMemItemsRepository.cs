@@ -24,5 +24,10 @@ namespace Catalog.Repositories
       
       
     }
+
+    public void CreateItem(Item item)
+    {
+      items.Add(item);
+    }
   }
 }
