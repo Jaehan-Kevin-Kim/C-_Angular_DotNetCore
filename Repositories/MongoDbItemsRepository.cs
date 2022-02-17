@@ -1,13 +1,21 @@
 using Catalog.Entities;
+using MongoDB.Driver;
 
 namespace Catalog.Repositories
 {
 
   public class MongoDbItemsRepository : IItemsRepository
   {
-    public MongoDbItemsRepository()
-    {
+    private const string databaseName = "catalog";
+    private const string collectionName = "items";
 
+
+    private readonly IMongoCollection<Item> itemsCollection;
+
+    public MongoDbItemsRepository(IMongoClient mongoClient)
+    {
+      IMongoDatabase database = mongoClient.GetDatabase(databaseName);
+      itemsCollection = database.GetCollection<Item>(collectionName);
     }
 
     public void CreateItem(Item item)
@@ -37,5 +45,3 @@ namespace Catalog.Repositories
   }
 
 }
-
-dotnet add package MongoDB.Driver
