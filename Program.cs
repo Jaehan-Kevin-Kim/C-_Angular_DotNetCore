@@ -8,6 +8,7 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 아래는 자동 생성 될 guid(id)와 datetime의 type을 미리 지정해주는 코드. 이걸 설정안하면 내가 예상하지 않은대로 datatype이 설정 될 수 있음
 BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
