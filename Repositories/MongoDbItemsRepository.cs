@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Catalog.Entities;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using MongoDB.Bson;
@@ -22,33 +23,33 @@ namespace Catalog.Repositories
       itemsCollection = database.GetCollection<Item>(collectionName);
     }
 
-    public void CreateItemAsync(Item item)
+    public async Task CreateItemAsync(Item item)
     {
-      itemsCollection.InsertOne(item);
+      await itemsCollection.InsertOneAsync(item);
     }
 
-    public void DeleteItemAsync(Guid id)
-    {
-      var filter = filterBuilder.Eq(item => item.Id, id);
-      itemsCollection.DeleteOne(filter);
-    }
-
-    public Item GetItemAsync(Guid id)
+    public async Task DeleteItemAsync(Guid id)
     {
       var filter = filterBuilder.Eq(item => item.Id, id);
-      return itemsCollection.Find(filter).SingleOrDefault();
+      await itemsCollection.DeleteOneAsync(filter);
     }
 
-    public IEnumerable<Item> GetItemsAsync()
+    public async Task<Item> GetItemAsync(Guid id)
+    {
+      var filter = filterBuilder.Eq(item => item.Id, id);
+      return await itemsCollection.Find(filter).SingleOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<Item>> GetItemsAsync()
     {
       // throw new NotImplementedException();
-      return itemsCollection.Find(new BsonDocument()).ToList();
+      return await itemsCollection.Find(new BsonDocument()).ToListAsync();
     }
 
-    public void UpdateItemAsync(Item item)
+    public async Task UpdateItemAsync(Item item)
     {
       var filter = filterBuilder.Eq(existingItem => existingItem.Id, item.Id);
-      itemsCollection.ReplaceOne(filter, item);
+      await itemsCollection.ReplaceOneAsync(filter, item);
 
 
     }
