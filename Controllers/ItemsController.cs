@@ -28,7 +28,7 @@ namespace Catalog.Controllers
 
     public IEnumerable<ItemDto> GetItems()
     {
-      var items = repository.GetItems().Select(item =>
+      var items = repository.GetItemsAsync().Select(item =>
       item.AsDto()
       //  new ItemDto
       // {
@@ -47,7 +47,7 @@ namespace Catalog.Controllers
     public ActionResult<ItemDto> GetItem(Guid id)
     {
       // var item = repository.GetItem(id);
-      var item = repository.GetItem(id);
+      var item = repository.GetItemAsync(id);
 
       if (item is null)
       {
@@ -70,7 +70,7 @@ namespace Catalog.Controllers
 
       };
 
-      repository.CreateItem(item);
+      repository.CreateItemAsync(item);
 
       return CreatedAtAction(nameof(GetItem), new { id = item.Id }, item.AsDto());
 
@@ -81,7 +81,7 @@ namespace Catalog.Controllers
     [HttpPut("{id}")]
     public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
     {
-      var existingItem = repository.GetItem(id);
+      var existingItem = repository.GetItemAsync(id);
       if (existingItem is null)
       {
         return NotFound();
@@ -93,7 +93,7 @@ namespace Catalog.Controllers
         Price = itemDto.Price
       };
 
-      repository.UpdateItem(updateItem);
+      repository.UpdateItemAsync(updateItem);
 
       return NoContent();
     }
@@ -101,14 +101,14 @@ namespace Catalog.Controllers
     [HttpDelete("{id}")]
     public ActionResult DeleteItem(Guid id)
     {
-      var existingItem = repository.GetItem(id);
+      var existingItem = repository.GetItemAsync(id);
 
       if (existingItem is null)
       {
         return NotFound();
       }
 
-      repository.DeleteItem(id);
+      repository.DeleteItemAsync(id);
       return NoContent();
 
     }
